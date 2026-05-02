@@ -171,7 +171,7 @@ This app is deployed on **Streamlit Cloud** with the following configuration:
 
 ## 👨‍💻 Author
 
-**Ashish Waliya**
+**Ashish Kumar**
 Developed as part of a research project on image-based machine learning for agricultural disease detection.
 
 ---
