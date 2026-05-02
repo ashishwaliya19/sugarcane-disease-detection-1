@@ -8,14 +8,25 @@ import cv2
 import gdown
 import os
 
-if not os.path.exists("sugarcane_model.h5"):
-    gdown.download(
-        id="1i9FouXOVuranquyUZYFdOnLSxlrIWsxy",
-        output="sugarcane_model.h5",
-        quiet=False,
-        fuzzy=True
-    )
+def download_model():
+    if not os.path.exists("sugarcane_model.h5"):
+        import requests
+        url = "https://drive.google.com/uc?export=download&id=1i9FouXOVuranquyUZYFdOnLSxlrIWsxy"
+        session = requests.Session()
+        response = session.get(url, stream=True)
+        token = None
+        for key, value in response.cookies.items():
+            if key.startswith("download_warning"):
+                token = value
+        if token:
+            url = url + "&confirm=" + token
+            response = session.get(url, stream=True)
+        with open("sugarcane_model.h5", "wb") as f:
+            for chunk in response.iter_content(32768):
+                if chunk:
+                    f.write(chunk)
 
+download_model()
 model = tf.keras.models.load_model("sugarcane_model.h5")
 
 classes = ['Healthy','Mosaic','RedRot','Rust','Yellow']
