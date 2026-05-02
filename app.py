@@ -9,7 +9,12 @@ import gdown
 import os
 
 if not os.path.exists("sugarcane_model.h5"):
-    gdown.download("https://drive.google.com/uc?id=1i9FouXOVuranquyUZYFdOnLSxlrIWsxy", "sugarcane_model.h5", quiet=False)
+    gdown.download(
+        id="1i9FouXOVuranquyUZYFdOnLSxlrIWsxy",
+        output="sugarcane_model.h5",
+        quiet=False,
+        fuzzy=True
+    )
 
 model = tf.keras.models.load_model("sugarcane_model.h5")
 
